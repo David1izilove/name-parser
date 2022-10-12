@@ -21,13 +21,12 @@ class Finder:
         list_of_results = []
         for name in self.names_list:
             list_of_results.append((name + ' -> ' + '\n'))
-            for line_number, line_text in enumerate(self.read_txt_file()):
+            for line_number, line_text in enumerate(self.read_txt_file(), 1):
                 if name in line_text:
-                    line = str(line_number + 1)
                     matches = re.finditer(name, line_text)
                     matches_indexes = [match.start() for match in matches]
-                    result = "[lineNumber=" + line + ", " + "charIndex=" + \
-                             ','.join(str(index) for index in matches_indexes) + "] "
+                    result = f"[lineNumber= {str(line_number)}, " \
+                             f"charIndex= {','.join(str(index) for index in matches_indexes)}]"
                     list_of_results.append((result + '\n'))
         return ''.join(list_of_results)
 
